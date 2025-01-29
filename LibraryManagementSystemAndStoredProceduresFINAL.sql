@@ -4,9 +4,6 @@ AS
 CREATE DATABASE db_LibraryManagement
 
 GO
-	/* ======================= TABLES ========================*/
-
-
 	CREATE TABLE tbl_publisher (
 		publisher_PublisherName VARCHAR(100) PRIMARY KEY NOT NULL,
 		publisher_PublisherAddress VARCHAR(200) NOT NULL,
@@ -65,10 +62,6 @@ GO
 
 	SELECT * FROM tbl_book_authors
 
-/*======================== END TABLES ======================*/
-
-
-/*==================== POPULATING TABLES ======================*/
 	
 	INSERT INTO tbl_publisher
 		(publisher_PublisherName, publisher_PublisherAddress, publisher_PublisherPhone)
@@ -127,9 +120,6 @@ GO
 		('Saline','40 State Street, Saline, MI 48176'),
 		('Ann Arbor','101 South University, Ann Arbor, MI 48104');
 
-	/*UPDATE tbl_library_branch
-	SET library_branch_BranchName = 'Central'
-	WHERE library_branch_BranchID = 2;*/
 	
 	SELECT * FROM tbl_library_branch
 
@@ -318,11 +308,7 @@ GO
 
 	SELECT * FROM tbl_book_authors
 END
-	/*============================== END POPULATING TABLES ==============================*/
-
-/* =================== STORED PROCEDURE QUERY QUESTIONS =================================== */
-
-/* #1- How many copies of the book titled "The Lost Tribe" are owned by the library branch whose name is "Sharpstown"? */
+	
 
 CREATE PROC dbo.bookCopiesAtAllSharpstown 
 (@bookTitle varchar(70) = 'The Lost Tribe', @branchName varchar(70) = 'Sharpstown')
@@ -338,7 +324,6 @@ GO
 EXEC dbo.bookCopiesAtAllSharpstown 
 
 
-/* #2- How many copies of the book titled "The Lost Tribe" are owned by each library branch? */
 
 CREATE PROC dbo.bookCopiesAtAllBranches 
 (@bookTitle varchar(70) = 'The Lost Tribe')
@@ -354,7 +339,7 @@ GO
 EXEC dbo.bookCopiesAtAllBranches
 
 
-/* #3- Retrieve the names of all borrowers who do not have any books checked out. */
+
 		
 CREATE PROC dbo.NoLoans
 AS
@@ -365,7 +350,7 @@ SELECT borrower_BorrowerName FROM tbl_borrower
 GO
 EXEC dbo.NoLoans
 
-/* #4- For each book that is loaned out from the "Sharpstown" branch and whose DueDate is today, retrieve the book title, the borrower's name, and the borrower's address.  */
+
 
 CREATE PROC dbo.LoanersInfo 
 (@DueDate date = NULL, @LibraryBranchName varchar(50) = 'Sharpstown')
@@ -382,7 +367,6 @@ SELECT Branch.library_branch_BranchName AS [Branch Name],  Book.book_Title [Book
 GO
 EXEC dbo.LoanersInfo 
 
-/* #5- For each library branch, retrieve the branch name and the total number of books loaned out from that branch.  */
 
 CREATE PROC dbo.TotalLoansPerBranch
 AS
@@ -409,8 +393,6 @@ EXEC dbo.BooksLoanedOut
 
 
 
-/* #7- For each book authored by "Stephen King", retrieve the title and the number of copies owned by the library branch whose name is "Central".*/
-
 CREATE PROC dbo.BookbyAuthorandBranch
 	(@BranchName varchar(50) = 'Central', @AuthorName varchar(50) = 'Stephen King')
 AS
@@ -423,4 +405,3 @@ AS
 GO	
 EXEC dbo.BookbyAuthorandBranch
 
-/* ==================================== STORED PROCEDURE QUERY QUESTIONS =================================== */
